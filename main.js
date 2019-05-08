@@ -12,20 +12,23 @@ axios.interceptors.response.use(function(response){
 })
 
 axios.get('books/1')
-  .then((response) => {
-  console.log(response)
+  .then(({data}) => {
+  let originalHtml = $('#app').html()
+  let newHtml = originalHtml.replace('__name__',data.name)
+  .replace('__number__',data.number)
+  $('#app').html(newHtml)
 })
 
-$('#addOne').on('click',function(){
+$('#app').on('click','#addOne',function(){
   var oldNumber = $('#number').text()
   var newNumber = oldNumber-0+1
   $('#number').text(newNumber)
 })
-$('#minusOne').on('click',function(){
+$('#app').on('click','#minusOne',function(){
   var oldNumber = $('#number').text()
   var newNumber = oldNumber-0 -1
   $('#number').text(newNumber)
 })
-$('#reset').on('click',function(){
+$('#app').on('click','#reset',function(){
   $('#number').text(0)
 })
